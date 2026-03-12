@@ -7,9 +7,9 @@ export default function Navbar() {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Practice Areas", href: "#practice" },
-    { label: "Team", href: "#team" },
-    { label: "Contact", href: "#contact" },
+    { label: "Practice Areas", href: "/practice" },
+    { label: "Team", href: "/team" },
+    { label: "Contact", href: "/contact" },
   ];
 
   return (
@@ -38,15 +38,9 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div style={s.desktopNav}>
             {navItems.map((item, idx) => (
-              item.href.startsWith('/') ? (
-                <Link key={idx} to={item.href} style={s.navLink} className="nav-link">
-                  {item.label}
-                </Link>
-              ) : (
-                <a key={idx} href={item.href} style={s.navLink} className="nav-link">
-                  {item.label}
-                </a>
-              )
+              <Link key={idx} to={item.href} style={s.navLink} className="nav-link">
+                {item.label}
+              </Link>
             ))}
           </div>
 
@@ -59,27 +53,16 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div style={s.mobileMenu}>
-            {navItems.map((item, idx) => 
-              item.href.startsWith('/') ? (
-                <Link
-                  key={idx}
-                  to={item.href}
-                  style={s.mobileNavLink}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <a
-                  key={idx}
-                  href={item.href}
-                  style={s.mobileNavLink}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              )
-            )}
+            {navItems.map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.href}
+                style={s.mobileNavLink}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
             <button style={s.mobileCTAButton} className="mobile-cta">
               CONSULTATION
             </button>
