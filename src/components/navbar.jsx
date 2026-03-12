@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
     { label: "Practice Areas", href: "#practice" },
     { label: "Team", href: "#team" },
     { label: "Contact", href: "#contact" },
@@ -16,10 +17,12 @@ export default function Navbar() {
       <nav style={s.navbar}>
         <div style={s.container}>
           {/* Logo */}
-          <div style={s.logo}>
-            <span style={s.logoText}>MWANGI & ASSOCIATES</span>
-            <span style={s.logoSubtext}>Advocates</span>
-          </div>
+          <Link to="/" style={s.logoLink}>
+            <div style={s.logo}>
+              <span style={s.logoText}>MWANGI & ASSOCIATES</span>
+              <span style={s.logoSubtext}>Advocates</span>
+            </div>
+          </Link>
 
           {/* Hamburger menu */}
           <button
@@ -35,9 +38,15 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div style={s.desktopNav}>
             {navItems.map((item, idx) => (
-              <a key={idx} href={item.href} style={s.navLink} className="nav-link">
-                {item.label}
-              </a>
+              item.href.startsWith('/') ? (
+                <Link key={idx} to={item.href} style={s.navLink} className="nav-link">
+                  {item.label}
+                </Link>
+              ) : (
+                <a key={idx} href={item.href} style={s.navLink} className="nav-link">
+                  {item.label}
+                </a>
+              )
             ))}
           </div>
 
@@ -50,16 +59,27 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div style={s.mobileMenu}>
-            {navItems.map((item, idx) => (
-              <a
-                key={idx}
-                href={item.href}
-                style={s.mobileNavLink}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item, idx) => 
+              item.href.startsWith('/') ? (
+                <Link
+                  key={idx}
+                  to={item.href}
+                  style={s.mobileNavLink}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={idx}
+                  href={item.href}
+                  style={s.mobileNavLink}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              )
+            )}
             <button style={s.mobileCTAButton} className="mobile-cta">
               CONSULTATION
             </button>
@@ -96,6 +116,9 @@ const s = {
     flexDirection: "column",
     gap: "2px",
     cursor: "pointer",
+  },
+  logoLink: {
+    textDecoration: "none",
   },
   logoText: {
     fontSize: "16px",

@@ -34,7 +34,7 @@ export default function AboutSection() {
   return (
     <div style={s.root}>
       <style>{css}</style>
-        
+       
       {/* LEFT PANEL — image/visual side */}
       <div style={s.left}>
 
@@ -246,6 +246,11 @@ const s = {
     display: "flex",
     fontFamily: "'Georgia', 'Times New Roman', serif",
     overflow: "hidden",
+  },
+  devider: {
+    background: "#1b9e9e",
+    height: "50px",
+    width: "100vw",
   },
   left: {
     flex: "0 0 46%",
