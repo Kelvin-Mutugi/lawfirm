@@ -62,7 +62,7 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <div style={{ ...s.ctaRow, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(16px)", transition: "opacity 0.8s ease 1s, transform 0.8s ease 1s" }}>
-          <button style={s.btnBlack} className="btn-black">
+          <button style={s.btnBlack} className="btn-black" onClick={() => window.open('/consultation', '_blank')}>
             BOOK A CONSULTATION
           </button>
           <button style={s.btnOutline} className="btn-outline">

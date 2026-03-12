@@ -7,12 +7,14 @@ import About from './pages/About'
 import PracticeAreas from './pages/PracticeAreas'
 import Team from './pages/Team'
 import Contact from './pages/Contact'
+import BookConsultation from './pages/BookConsultation'
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/consultation" element={<BookConsultation />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/practice" element={<PracticeAreas />} />

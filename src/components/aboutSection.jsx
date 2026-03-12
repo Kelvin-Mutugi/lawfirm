@@ -9,9 +9,9 @@ const STATS = [
 ];
 
 const PILLARS = [
-  { icon: "⚖", title: "INTEGRITY", desc: "We uphold the highest ethical standards in every case we handle." },
-  { icon: "🏛", title: "EXPERTISE", desc: "Deep knowledge of Kenyan law across multiple legal disciplines." },
-  { icon: "🤝", title: "DEDICATION", desc: "Committed to achieving the best possible outcomes for our clients." },
+  { icon: "I", title: "INTEGRITY", desc: "We uphold the highest ethical standards in every case we handle." },
+  { icon: "E", title: "EXPERTISE", desc: "Deep knowledge of Kenyan law across multiple legal disciplines." },
+  { icon: "D", title: "DEDICATION", desc: "Committed to achieving the best possible outcomes for our clients." },
 ];
 
 export default function AboutSection() {

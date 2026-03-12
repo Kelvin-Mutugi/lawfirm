@@ -58,9 +58,9 @@ export default function UnderConstruction({ title = "Coming Soon", description =
               {/* Under construction icon */}
               <div style={s.constructionIcon}>
                 <div style={s.toolBox}>
-                  <div style={s.wrench}>🔧</div>
-                  <div style={s.hammer}>🔨</div>
-                  <div style={s.gear}>⚙</div>
+                  <div style={s.wrench}>W</div>
+                  <div style={s.hammer}>H</div>
+                  <div style={s.gear}>G</div>
                 </div>
               </div>
 
