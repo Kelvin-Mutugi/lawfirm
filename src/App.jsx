@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import './App.css'
+import Navbar from './components/navbar'
 import HeroSection from './components/heroSection'
 
 
@@ -8,6 +8,7 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <HeroSection/>
     </>
   )

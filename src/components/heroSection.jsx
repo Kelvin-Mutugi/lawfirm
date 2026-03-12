@@ -111,6 +111,7 @@ const s = {
     display: "flex",
     fontFamily: "'Georgia', 'Times New Roman', serif",
     overflow: "hidden",
+    paddingTop: "70px",
   },
   left: {
     flex: "0 0 52%",
