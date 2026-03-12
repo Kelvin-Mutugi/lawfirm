@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import heroVid from "../images/heroVid.mp4";
 
 const WORDS = ["Individuals", "Businesses", "Families", "Futures"];
 
 export default function HeroSection() {
+  const [loaded, setLoaded] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [fadeWord, setFadeWord] = useState(true);
-  const [loaded, setLoaded] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    setTimeout(() => setLoaded(true), 100);
+    setTimeout(() => setLoaded(true), 80);
   }, []);
 
   useEffect(() => {
@@ -18,503 +18,297 @@ export default function HeroSection() {
       setTimeout(() => {
         setWordIndex((i) => (i + 1) % WORDS.length);
         setFadeWord(true);
-      }, 400);
-    }, 2800);
+      }, 350);
+    }, 2600);
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const handleMove = (e) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 18,
-        y: (e.clientY / window.innerHeight - 0.5) * 10,
-      });
-    };
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
-
   return (
-    <div style={styles.wrapper}>
+    <div style={s.root}>
       <style>{css}</style>
 
-      {/* Simulated video background using animated CSS */}
-      <div style={styles.videoBg}>
-        <div style={styles.videoOverlay} />
-        <div style={styles.scanlines} />
-        <div
-          style={{
-            ...styles.parallaxLayer,
-            transform: `translate(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px)`,
-          }}
-        />
-      </div>
+      {/* LEFT PANEL — white content */}
+      <div style={s.left}>
+        {/* Big headline */}
+        <div style={{ ...s.bigTitle, ...(loaded ? { opacity: 1, transform: "translateY(0)" } : { opacity: 0, transform: "translateY(40px)" }), transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s" }}>
+          MWANGI &<br />ASSOCIATES
+        </div>
 
-      {/* Decorative vertical lines */}
-      <div style={styles.vertLines}>
-        {[...Array(6)].map((_, i) => (
-          <div key={i} style={{ ...styles.vertLine, animationDelay: `${i * 0.15}s` }} />
-        ))}
-      </div>
-
-      {/* Corner ornaments */}
-      <div style={{ ...styles.corner, top: 28, left: 28 }} className="corner-tl" />
-      <div style={{ ...styles.corner, top: 28, right: 28, transform: "scaleX(-1)" }} className="corner-tl" />
-      <div style={{ ...styles.corner, bottom: 28, left: 28, transform: "scaleY(-1)" }} className="corner-tl" />
-      <div style={{ ...styles.corner, bottom: 28, right: 28, transform: "scale(-1,-1)" }} className="corner-tl" />
-
-      {/* Firm name badge */}
-      <div
-        style={{
-          ...styles.badge,
-          opacity: loaded ? 1 : 0,
-          transform: loaded ? "translateY(0)" : "translateY(-20px)",
-        }}
-        className="badge-anim"
-      >
-        <span style={styles.badgeDot} />
-        MWANGI & ASSOCIATES ADVOCATES
-        <span style={styles.badgeDot} />
-      </div>
-
-      {/* Main content */}
-      <div style={styles.content}>
-        {/* Headline */}
-        <h1
-          style={{
-            ...styles.headline,
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(40px)",
-            transition: "opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s",
-          }}
-        >
-          Trusted Legal Solutions
-          <br />
-          <span style={styles.headlineFor}>for </span>
-          <span
-            style={{
-              ...styles.animWord,
-              opacity: fadeWord ? 1 : 0,
-              transform: fadeWord ? "translateY(0)" : "translateY(12px)",
-            }}
-          >
+        {/* Tagline with cycling word */}
+        <div style={{ ...s.tagline, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s" }}>
+          TRUSTED LEGAL SOLUTIONS FOR{" "}
+          <span style={{ ...s.cycleWord, opacity: fadeWord ? 1 : 0, transform: fadeWord ? "translateY(0)" : "translateY(8px)" }}>
             {WORDS[wordIndex]}
           </span>
-        </h1>
-
-        {/* Ruled divider */}
-        <div
-          style={{
-            ...styles.divider,
-            width: loaded ? "340px" : "0px",
-            transition: "width 1.1s ease 0.8s",
-          }}
-        >
-          <span style={styles.dividerDiamond}>◆</span>
         </div>
 
-        {/* Subheadline */}
-        <p
-          style={{
-            ...styles.sub,
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.9s ease 0.9s, transform 0.9s ease 0.9s",
-          }}
-        >
-          Providing professional legal representation in corporate law,
-          family law, property disputes, and litigation.
-        </p>
+        {/* Divider */}
+        <div style={{ ...s.hrWrap, opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease 0.5s" }}>
+          <div style={{ ...s.hr, width: loaded ? "260px" : "0px", transition: "width 1s ease 0.5s" }} />
+        </div>
 
-        {/* Description */}
-        <p
-          style={{
-            ...styles.desc,
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.9s ease 1.1s, transform 0.9s ease 1.1s",
-          }}
-        >
-          At Mwangi & Associates Advocates, we are committed to protecting your
-          rights and delivering strategic legal solutions tailored to your needs.
-        </p>
+        {/* Sub section */}
+        <div style={{ ...s.subSection, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s" }}>
+          <p style={s.subTitle}>PROVIDING PROFESSIONAL REPRESENTATION</p>
+          <p style={s.subText}>
+            At Mwangi & Associates Advocates, we are committed to protecting your rights and delivering strategic legal solutions tailored to your needs — in corporate law, family law, property disputes, and litigation.
+          </p>
+        </div>
+
+        {/* Secondary divider */}
+        <div style={{ ...s.hrWrap, opacity: loaded ? 1 : 0, transition: "opacity 0.6s ease 0.8s" }}>
+          <div style={{ ...s.hr, width: loaded ? "260px" : "0px", transition: "width 1s ease 0.8s" }} />
+        </div>
 
         {/* CTA Buttons */}
-        <div
-          style={{
-            ...styles.ctaRow,
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.9s ease 1.3s, transform 0.9s ease 1.3s",
-          }}
-        >
-          <button style={styles.btnPrimary} className="btn-primary">
-            <span style={styles.btnInner}>Book a Consultation</span>
+        <div style={{ ...s.ctaRow, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(16px)", transition: "opacity 0.8s ease 1s, transform 0.8s ease 1s" }}>
+          <button style={s.btnBlack} className="btn-black">
+            BOOK A CONSULTATION
           </button>
-          <button style={styles.btnSecondary} className="btn-secondary">
-            <span style={styles.btnInner}>Contact Our Lawyers</span>
+          <button style={s.btnOutline} className="btn-outline">
+            CONTACT OUR LAWYERS
           </button>
         </div>
 
-        {/* Stats row */}
-        <div
-          style={{
-            ...styles.statsRow,
-            opacity: loaded ? 1 : 0,
-            transition: "opacity 0.9s ease 1.6s",
-          }}
-        >
-          {[
-            { num: "20+", label: "Years of Practice" },
-            { num: "1,400+", label: "Cases Resolved" },
-            { num: "4", label: "Legal Specializations" },
-          ].map((s, i) => (
-            <div key={i} style={styles.statItem}>
-              <span style={styles.statNum}>{s.num}</span>
-              <span style={styles.statLabel}>{s.label}</span>
-            </div>
-          ))}
+        {/* Geometric shapes bottom-left */}
+        <div style={s.shapesRow}>
+          <div style={{ ...s.triYellow, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.1s, transform 0.7s ease 1.1s" }} />
+          <div style={{ ...s.triTeal, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.2s, transform 0.7s ease 1.2s" }} />
+          <div style={{ ...s.triTealStripe, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.3s, transform 0.7s ease 1.3s" }}>
+            {[...Array(7)].map((_, i) => (
+              <div key={i} style={{ ...s.stripe, top: `${i * 14}%` }} />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        style={{
-          ...styles.scrollHint,
-          opacity: loaded ? 1 : 0,
-          transition: "opacity 1s ease 2s",
-        }}
-      >
-        <div style={styles.scrollLine} className="scroll-line" />
-        <span style={styles.scrollText}>SCROLL</span>
+      {/* RIGHT PANEL — image with diagonal clip + teal triangle */}
+      <div style={s.right}>
+        {/* Teal triangle top */}
+        <div style={{ ...s.triTopRight, opacity: loaded ? 1 : 0, transition: "opacity 0.8s ease 0.4s" }} />
+
+        {/* Photo panel with diagonal left edge */}
+        <div style={{ ...s.photoWrap, opacity: loaded ? 1 : 0, clipPath: loaded ? "polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%)" : "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)", transition: "clip-path 1s ease 0.3s, opacity 0.8s ease 0.3s" }}>
+          <div style={s.photoBg}>
+            <video style={s.video} src={heroVid} autoPlay loop muted />
+            <div style={s.photoOverlay} />
+          </div>
+        </div>
+
+        {/* Small teal triangle lower */}
+        <div style={{ ...s.triBottomRight, opacity: loaded ? 1 : 0, transition: "opacity 0.9s ease 0.9s" }} />
       </div>
     </div>
   );
 }
 
-const styles = {
-  wrapper: {
+const s = {
+  root: {
     position: "relative",
     width: "100%",
     minHeight: "100vh",
-    background: "#0a0a0a",
-    overflow: "hidden",
+    background: "#ffffff",
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
     fontFamily: "'Georgia', 'Times New Roman', serif",
-    color: "#e8e0d0",
-  },
-  videoBg: {
-    position: "absolute",
-    inset: 0,
-    zIndex: 0,
     overflow: "hidden",
-    background: `
-      radial-radial(ellipse at 20% 50%, #1a1208 0%, transparent 60%),
-      #0a0a0a
-    `,
   },
-  videoOverlay: {
-    position: "absolute",
-    inset: 0,
-    background: `
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      )
-    `,
-    zIndex: 2,
-    animation: "panBg 30s linear infinite",
-  },
-  scanlines: {
-    position: "absolute",
-    inset: 0,
-    background: `
-      linear-gradient(
-        to bottom,
-        rgba(180,140,60,0.03) 0%,
-        transparent 50%,
-        rgba(180,140,60,0.03) 100%
-      )
-    `,
-    zIndex: 1,
-    animation: "scanline 8s ease-in-out infinite",
-  },
-  parallaxLayer: {
-    position: "absolute",
-    inset: "-5%",
-    backgroundImage: `
-      radial-gradient(ellipse 80% 60% at 30% 40%, rgba(160,120,40,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 80% at 70% 60%, rgba(100,80,30,0.08) 0%, transparent 50%)
-    `,
-    transition: "transform 0.15s ease-out",
-    zIndex: 1,
-    animation: "slowDrift 20s ease-in-out infinite",
-  },
-  vertLines: {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "stretch",
-    zIndex: 1,
-    pointerEvents: "none",
-  },
-  vertLine: {
-    width: "1px",
-    background: "rgba(180,140,60,0.06)",
-    animation: "fadeInLine 1.5s ease forwards",
-    opacity: 0,
-  },
-  corner: {
-    position: "absolute",
-    width: 40,
-    height: 40,
-    borderTop: "2px solid rgba(180,140,60,0.5)",
-    borderLeft: "2px solid rgba(180,140,60,0.5)",
-    zIndex: 10,
-    animation: "cornerAppear 1s ease 0.2s forwards",
-    opacity: 0,
-  },
-  badge: {
-    position: "absolute",
-    top: 36,
-    left: "50%",
-    transform: "translateX(-50%)",
-    fontSize: "10px",
-    letterSpacing: "0.35em",
-    color: "#b8962e",
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    zIndex: 10,
-    transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s",
-    whiteSpace: "nowrap",
-  },
-  badgeDot: {
-    display: "inline-block",
-    width: 4,
-    height: 4,
-    borderRadius: "50%",
-    background: "#b8962e",
-  },
-  content: {
-    position: "relative",
-    zIndex: 5,
-    textAlign: "center",
-    maxWidth: 820,
-    padding: "0 32px",
+  left: {
+    flex: "0 0 52%",
+    padding: "60px 52px 40px 56px",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    gap: 0,
+    justifyContent: "center",
+    position: "relative",
+    zIndex: 2,
   },
-  headline: {
-    fontSize: "clamp(36px, 5.5vw, 68px)",
-    fontWeight: "400",
-    lineHeight: 1.15,
-    letterSpacing: "-0.01em",
-    color: "#f0e8d8",
-    marginBottom: 0,
+  bigTitle: {
+    fontSize: "clamp(48px, 6vw, 82px)",
+    fontWeight: "900",
+    lineHeight: 1.0,
+    color: "#111111",
+    letterSpacing: "-0.02em",
+    marginBottom: 14,
+    fontFamily: "'Georgia', serif",
+  },
+  tagline: {
+    fontSize: "clamp(11px, 1.3vw, 14px)",
+    fontWeight: "700",
+    letterSpacing: "0.18em",
+    color: "#111111",
+    fontFamily: "'Trebuchet MS', sans-serif",
+    marginBottom: 18,
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: "0 6px",
+  },
+  cycleWord: {
+    color: "#1b9e9e",
+    display: "inline-block",
+    transition: "opacity 0.35s ease, transform 0.35s ease",
+    borderBottom: "2px solid #1b9e9e",
+  },
+  hrWrap: { marginBottom: 20 },
+  hr: {
+    height: "2px",
+    background: "#111111",
+    transition: "width 1s ease",
+  },
+  subSection: { marginBottom: 20 },
+  subTitle: {
+    fontSize: "12px",
+    fontWeight: "700",
+    letterSpacing: "0.15em",
+    color: "#111",
+    fontFamily: "'Trebuchet MS', sans-serif",
+    marginBottom: 10,
     marginTop: 0,
   },
-  headlineFor: {
-    color: "#9a8a6a",
-    fontStyle: "italic",
-  },
-  animWord: {
-    color: "#b8962e",
-    display: "inline-block",
-    fontStyle: "italic",
-    transition: "opacity 0.4s ease, transform 0.4s ease",
-    borderBottom: "1px solid rgba(184,150,46,0.4)",
-    paddingBottom: 2,
-  },
-  divider: {
-    height: "1px",
-    background: "rgba(184,150,46,0.35)",
-    margin: "28px auto",
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "visible",
-  },
-  dividerDiamond: {
-    fontSize: 10,
-    color: "#b8962e",
-    background: "#0a0a0a",
-    padding: "0 10px",
-    position: "absolute",
-    letterSpacing: 4,
-  },
-  sub: {
-    fontSize: "clamp(14px, 1.8vw, 17px)",
-    color: "#b0a898",
-    letterSpacing: "0.04em",
-    lineHeight: 1.7,
-    maxWidth: 620,
-    margin: "0 auto 16px",
+  subText: {
+    fontSize: "13px",
+    color: "#444444",
+    lineHeight: 1.75,
     fontFamily: "'Trebuchet MS', sans-serif",
-    fontWeight: 300,
-  },
-  desc: {
-    fontSize: "clamp(13px, 1.5vw, 15px)",
-    color: "#7a7060",
-    letterSpacing: "0.02em",
-    lineHeight: 1.8,
-    maxWidth: 540,
-    margin: "0 auto 36px",
-    fontFamily: "'Trebuchet MS', sans-serif",
+    margin: 0,
+    maxWidth: 420,
   },
   ctaRow: {
     display: "flex",
-    gap: 16,
+    gap: 14,
+    marginTop: 8,
+    marginBottom: 40,
     flexWrap: "wrap",
-    justifyContent: "center",
-    marginBottom: 48,
   },
-  btnPrimary: {
-    background: "#b8962e",
+  btnBlack: {
+    background: "#111111",
+    color: "#ffffff",
     border: "none",
-    color: "#0a0a0a",
-    padding: "14px 34px",
-    fontSize: "12px",
-    letterSpacing: "0.2em",
+    padding: "13px 26px",
+    fontSize: "11px",
+    letterSpacing: "0.15em",
     fontFamily: "'Trebuchet MS', sans-serif",
-    fontWeight: 700,
+    fontWeight: "700",
     cursor: "pointer",
-    position: "relative",
-    overflow: "hidden",
-    transition: "all 0.3s ease",
+    transition: "all 0.25s ease",
     textTransform: "uppercase",
-    clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)",
   },
-  btnSecondary: {
+  btnOutline: {
     background: "transparent",
-    border: "1px solid rgba(184,150,46,0.5)",
-    color: "#c8b06e",
-    padding: "14px 34px",
-    fontSize: "12px",
-    letterSpacing: "0.2em",
+    color: "#111111",
+    border: "2px solid #111111",
+    padding: "11px 24px",
+    fontSize: "11px",
+    letterSpacing: "0.15em",
     fontFamily: "'Trebuchet MS', sans-serif",
-    fontWeight: 400,
+    fontWeight: "700",
     cursor: "pointer",
+    transition: "all 0.25s ease",
+    textTransform: "uppercase",
+  },
+  shapesRow: {
+    display: "flex",
+    alignItems: "flex-end",
+    gap: 0,
+    position: "absolute",
+    bottom: 0,
+    left: 40,
+  },
+  triYellow: {
+    width: 0,
+    height: 0,
+    borderLeft: "44px solid transparent",
+    borderRight: "44px solid transparent",
+    borderBottom: "72px solid #e8b83a",
+  },
+  triTeal: {
+    width: 0,
+    height: 0,
+    borderLeft: "52px solid transparent",
+    borderRight: "52px solid transparent",
+    borderBottom: "96px solid #1b7f7f",
+    marginLeft: 4,
+  },
+  triTealStripe: {
+    width: 72,
+    height: 90,
     position: "relative",
     overflow: "hidden",
-    transition: "all 0.3s ease",
-    textTransform: "uppercase",
-    clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)",
+    clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
+    background: "#1b9e9e",
+    marginLeft: 4,
+    opacity: 0.6,
   },
-  btnInner: {
+  stripe: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    height: "10%",
+    background: "rgba(255,255,255,0.35)",
+  },
+  right: {
+    flex: "0 0 48%",
     position: "relative",
+    overflow: "hidden",
+  },
+  triTopRight: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 0,
+    height: 0,
+    borderTop: "160px solid #9ee8e4",
+    borderLeft: "160px solid transparent",
+    zIndex: 3,
+  },
+  photoWrap: {
+    position: "absolute",
+    inset: 0,
+    top: "8%",
+    overflow: "hidden",
     zIndex: 1,
   },
-  statsRow: {
-    display: "flex",
-    gap: 48,
-    borderTop: "1px solid rgba(184,150,46,0.15)",
-    paddingTop: 28,
+  photoBg: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
+    overflow: "hidden",
   },
-  statItem: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 4,
+  video: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "center",
+    display: "block",
   },
-  statNum: {
-    fontSize: "clamp(22px, 3vw, 32px)",
-    fontWeight: 400,
-    color: "#b8962e",
-    letterSpacing: "0.05em",
-  },
-  statLabel: {
-    fontSize: "10px",
-    color: "#6a6050",
-    letterSpacing: "0.2em",
-    textTransform: "uppercase",
-    fontFamily: "'Trebuchet MS', sans-serif",
-  },
-  scrollHint: {
+  photoOverlay: {
     position: "absolute",
-    bottom: 32,
-    left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 8,
-    zIndex: 10,
+    inset: 0,
+    background:
+      "linear-gradient(135deg, rgba(180,160,120,0.3) 0%, rgba(100,90,70,0.2) 100%)",
+    zIndex: 2,
   },
-  scrollLine: {
-    width: "1px",
-    height: 40,
-    background: "rgba(184,150,46,0.4)",
-  },
-  scrollText: {
-    fontSize: "9px",
-    letterSpacing: "0.3em",
-    color: "#5a5040",
-    fontFamily: "'Trebuchet MS', sans-serif",
+  triBottomRight: {
+    position: "absolute",
+    bottom: 0,
+    right: "10%",
+    width: 0,
+    height: 0,
+    borderBottom: "100px solid #9ee8e4",
+    borderLeft: "100px solid transparent",
+    zIndex: 4,
   },
 };
 
 const css = `
-  @keyframes panBg {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
-  }
-  @keyframes scanline {
-    0%, 100% { opacity: 0.4; transform: translateY(0); }
-    50% { opacity: 1; transform: translateY(-10px); }
-  }
-  @keyframes slowDrift {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    33% { transform: translate(-1%,1%) scale(1.01); }
-    66% { transform: translate(1%,-0.5%) scale(0.99); }
-  }
-  @keyframes fadeInLine {
-    to { opacity: 1; }
-  }
-  @keyframes cornerAppear {
-    to { opacity: 1; }
-  }
-  @keyframes scrollPulse {
-    0%, 100% { transform: scaleY(1); transform-origin: top; }
-    50% { transform: scaleY(0.4); transform-origin: top; }
-  }
-  .scroll-line {
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  .btn-primary:hover {
-    background: #d4ab38 !important;
+  .btn-black:hover {
+    background: #1b9e9e !important;
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(184,150,46,0.3);
+    box-shadow: 0 6px 20px rgba(27,158,158,0.3);
   }
-  .btn-secondary:hover {
-    background: rgba(184,150,46,0.1) !important;
-    border-color: rgba(184,150,46,0.8) !important;
-    color: #e8c87a !important;
+  .btn-outline:hover {
+    background: #111 !important;
+    color: #fff !important;
     transform: translateY(-2px);
   }
-  .btn-primary::after, .btn-secondary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.15);
-    transform: translateX(-100%) skewX(-15deg);
-    transition: transform 0.5s ease;
-  }
-  .btn-primary:hover::after, .btn-secondary:hover::after {
-    transform: translateX(150%) skewX(-15deg);
-  }
-  .badge-anim {
-    transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s !important;
-  }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 `;
