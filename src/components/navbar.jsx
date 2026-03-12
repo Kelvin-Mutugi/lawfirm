@@ -83,13 +83,13 @@ const s = {
     transition: "all 0.3s ease",
   },
   container: {
-    maxWidth: "1400px",
+    maxWidth: "100vw",
     margin: "0 auto",
     padding: "0 20px",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     height: "70px",
+    paddingLeft: "56px",
   },
   logo: {
     display: "flex",
@@ -116,7 +116,7 @@ const s = {
     gap: "40px",
     alignItems: "center",
     marginLeft: "auto",
-    marginRight: "24px",
+    marginRight: "32px",
   },
   navLink: {
     fontSize: "12px",
