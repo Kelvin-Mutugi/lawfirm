@@ -24,11 +24,11 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div style={s.root}>
+    <div style={s.root} data-hero-root>
       <style>{css}</style>
 
       {/* LEFT PANEL — white content */}
-      <div style={s.left}>
+      <div style={s.left} data-hero-left>
         {/* Big headline */}
         <div style={{ ...s.bigTitle, ...(loaded ? { opacity: 1, transform: "translateY(0)" } : { opacity: 0, transform: "translateY(40px)" }), transition: "opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s" }}>
           MWANGI &<br />ASSOCIATES
@@ -71,7 +71,7 @@ export default function HeroSection() {
         </div>
 
         {/* Geometric shapes bottom-left */}
-        <div style={s.shapesRow}>
+        <div style={s.shapesRow} data-shapes-row>
           <div style={{ ...s.triYellow, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.1s, transform 0.7s ease 1.1s" }} />
           <div style={{ ...s.triTeal, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.2s, transform 0.7s ease 1.2s" }} />
           <div style={{ ...s.triTealStripe, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.3s, transform 0.7s ease 1.3s" }}>
@@ -83,7 +83,7 @@ export default function HeroSection() {
       </div>
 
       {/* RIGHT PANEL — image with diagonal clip + teal triangle */}
-      <div style={s.right}>
+      <div style={s.right} data-hero-right>
         {/* Teal triangle top */}
         <div style={{ ...s.triTopRight, opacity: loaded ? 1 : 0, transition: "opacity 0.8s ease 0.4s" }} />
 
@@ -111,7 +111,7 @@ const s = {
     display: "flex",
     fontFamily: "'Georgia', 'Times New Roman', serif",
     overflow: "hidden",
-    paddingTop: "70px",
+    paddingTop: "40px",
   },
   left: {
     flex: "0 0 52%",
@@ -301,6 +301,46 @@ const s = {
 };
 
 const css = `
+  @media (max-width: 1024px) {
+    [data-hero-root] {
+      flex-direction: column;
+    }
+    [data-hero-left] {
+      flex: 0 0 100% !important;
+      padding: 40px 20px !important;
+    }
+    [data-hero-right] {
+      flex: 0 0 100% !important;
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    [data-hero-root] {
+      padding-top: 70px !important;
+      flex-direction: column;
+    }
+    [data-hero-left] {
+      flex: 0 0 100% !important;
+      padding: 30px 16px !important;
+      justify-content: flex-start !important;
+      padding-top: 100px !important;
+    }
+    [data-hero-right] {
+      flex: 0 0 100% !important;
+      min-height: 280px;
+    }
+    [data-shapes-row] {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-hero-left] {
+      padding: 20px 12px !important;
+    }
+  }
+
   .btn-black:hover {
     background: #1b9e9e !important;
     transform: translateY(-2px);

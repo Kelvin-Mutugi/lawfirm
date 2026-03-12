@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import heroVid2 from "../images/heroVid2.mp4";
 
 const STATS = [
   { num: "20+", label: "YEARS OF PRACTICE" },
@@ -32,11 +33,11 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <div style={s.root}>
+    <div style={s.root} data-about-root>
       <style>{css}</style>
        
       {/* LEFT PANEL — image/visual side */}
-      <div style={s.left}>
+      <div style={s.left} data-about-left>
 
         {/* Teal triangle top-left */}
         <div style={{
@@ -55,22 +56,8 @@ export default function AboutSection() {
           transition: "clip-path 1s ease 0.2s, opacity 0.8s ease 0.2s",
         }}>
           <div style={s.photoBg}>
+            <video style={s.video} src={heroVid2} autoPlay loop muted />
             <div style={s.photoOverlay} />
-            {/* Scene */}
-            <div style={s.scene}>
-              <div style={s.sceneDesk} />
-              <div style={s.sceneScales}>⚖</div>
-              <div style={s.sceneBooks}>
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} style={{ ...s.book, background: ["#1b7f7f","#e8b83a","#1b9e9e","#555","#1b7f7f"][i], height: `${70 + i * 8}px` }} />
-                ))}
-              </div>
-              <div style={s.sceneDocs}>
-                <div style={s.doc1} />
-                <div style={s.doc2} />
-                <div style={s.doc3} />
-              </div>
-            </div>
           </div>
 
           {/* Floating experience badge */}
@@ -86,7 +73,7 @@ export default function AboutSection() {
         </div>
 
         {/* Geometric shapes bottom */}
-        <div style={s.shapesRow}>
+        <div style={s.shapesRow} data-about-shapes>
           {[
             { ...s.triYellow, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.6s ease 1s, transform 0.6s ease 1s" },
             { ...s.triTeal, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.6s ease 1.1s, transform 0.6s ease 1.1s" },
@@ -105,7 +92,7 @@ export default function AboutSection() {
       </div>
 
       {/* RIGHT PANEL — content */}
-      <div style={s.right}>
+      <div style={s.right} data-about-right>
 
         {/* Teal triangle top-right */}
         <div style={{
@@ -209,16 +196,17 @@ export default function AboutSection() {
             transform: loaded ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.7s ease 1.4s, transform 0.7s ease 1.4s",
           }}>
-            <button style={s.btnBlack} className="btn-black">LEARN MORE</button>
-            <button style={s.btnOutline} className="btn-outline">OUR TEAM</button>
+            <button style={s.btnBlack} className="btn-black" onClick={() => window.open('/practice', '_blank')}>LEARN MORE</button>
+            <button style={s.btnOutline} className="btn-outline" onClick={() => window.open('/team', '_blank')}>OUR TEAM</button>
           </div>
         </div>
 
         {/* Stats bar */}
-        <div ref={statsRef} style={s.statsBar}>
+        <div ref={statsRef} style={s.statsBar} data-stats-bar>
           {STATS.map((st, i) => (
             <div
               key={i}
+              data-stat-item
               style={{
                 ...s.statItem,
                 opacity: statsVisible ? 1 : 0,
@@ -246,6 +234,7 @@ const s = {
     display: "flex",
     fontFamily: "'Georgia', 'Times New Roman', serif",
     overflow: "hidden",
+    paddingTop: "50px",
   },
   devider: {
     background: "#1b9e9e",
@@ -283,6 +272,13 @@ const s = {
     height: "100%",
     background: "#c8bfaf",
     position: "relative",
+  },
+  video: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "center",
+    display: "block",
   },
   photoOverlay: {
     position: "absolute",
@@ -542,6 +538,49 @@ const s = {
 };
 
 const css = `
+  @media (max-width: 1024px) {
+    [data-about-root] {
+      flex-direction: column;
+    }
+    [data-about-left] {
+      flex: 0 0 100% !important;
+    }
+    [data-about-right] {
+      flex: 0 0 100% !important;
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    [data-about-root] {
+      flex-direction: column;
+    }
+    [data-about-left] {
+      flex: 0 0 100% !important;
+      padding: 30px 16px !important;
+    }
+    [data-about-right] {
+      flex: 0 0 100% !important;
+      min-height: 280px;
+    }
+    [data-about-shapes] {
+      display: none !important;
+    }
+    [data-stats-bar] {
+      flex-direction: column !important;
+    }
+    [data-stat-item] {
+      border-right: none !important;
+      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-about-left] {
+      padding: 20px 12px !important;
+    }
+  }
+
   .btn-black:hover { background: #1b9e9e !important; transform: translateY(-2px); }
   .btn-outline:hover { background: #111 !important; color: #fff !important; transform: translateY(-2px); }
   .pillar-item:hover { background: #f0fafa !important; transform: translateX(4px); border-left-color: #e8b83a !important; }

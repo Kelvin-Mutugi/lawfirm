@@ -36,7 +36,7 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Navigation */}
-          <div style={s.desktopNav}>
+          <div style={s.desktopNav} className="desktopNav">
             {navItems.map((item, idx) => (
               <Link key={idx} to={item.href} style={s.navLink} className="nav-link">
                 {item.label}
@@ -93,6 +93,7 @@ const s = {
     alignItems: "center",
     height: "70px",
     paddingLeft: "56px",
+    paddingRight: "20px",
   },
   logo: {
     display: "flex",
@@ -157,7 +158,7 @@ const s = {
     cursor: "pointer",
     gap: "5px",
     padding: "8px",
-    marginRight: "16px",
+    marginRight: "0",
   },
   hamburgerLine: {
     width: "24px",
@@ -213,23 +214,43 @@ const s = {
 
 const css = `
   @media (max-width: 768px) {
-    nav > div:nth-child(1) {
+    nav {
+      position: fixed;
+    }
+    
+    nav > div:first-child {
       padding: 0 12px !important;
+      flex-wrap: wrap;
     }
-    nav > div:nth-child(1) > div:nth-child(2) {
+
+    .hamburger-btn {
       display: flex !important;
-      order: 2;
+      margin-left: auto !important;
+      margin-right: 0 !important;
     }
-    nav > div:nth-child(1) > div:nth-child(3) {
+
+    .desktopNav {
       display: none !important;
     }
-    nav > div:nth-child(1) > button:nth-child(4) {
+
+    nav > div:first-child > div:nth-child(3) {
       display: none !important;
     }
+
+    nav > div:first-child > button:not(.hamburger-btn) {
+      display: none !important;
+    }
+
     nav > div:nth-child(2) {
       display: flex !important;
       max-height: 500px;
       animation: slideDown 0.3s ease;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    nav > div:first-child > a:first-child {
+      margin-right: 0;
     }
   }
 

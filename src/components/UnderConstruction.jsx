@@ -8,11 +8,11 @@ export default function UnderConstruction({ title = "Coming Soon", description =
   }, []);
 
   return (
-    <div style={s.root}>
+    <div style={s.root} data-construction-root>
       <style>{css}</style>
 
       {/* Left Section - Text Content */}
-      <div style={s.left}>
+      <div style={s.left} data-construction-left>
         <div style={{ ...s.mainContent, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(40px)", transition: "opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s" }}>
           <h1 style={s.title}>{title}</h1>
           
@@ -34,7 +34,7 @@ export default function UnderConstruction({ title = "Coming Soon", description =
         </div>
 
         {/* Geometric shapes bottom-left */}
-        <div style={s.shapesRow}>
+        <div style={s.shapesRow} data-shapes-row>
           <div style={{ ...s.triYellow, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1s, transform 0.7s ease 1s" }} />
           <div style={{ ...s.triTeal, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.1s, transform 0.7s ease 1.1s" }} />
           <div style={{ ...s.triTealStripe, opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)", transition: "opacity 0.7s ease 1.2s, transform 0.7s ease 1.2s" }}>
@@ -46,7 +46,7 @@ export default function UnderConstruction({ title = "Coming Soon", description =
       </div>
 
       {/* Right Section - Illustration */}
-      <div style={s.right}>
+      <div style={s.right} data-construction-right>
         {/* Teal triangle top */}
         <div style={{ ...s.triTopRight, opacity: loaded ? 1 : 0, transition: "opacity 0.8s ease 0.4s" }} />
 
@@ -296,6 +296,38 @@ const css = `
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
+  }
+
+  @media (max-width: 1024px) {
+    [data-construction-root] {
+      flex-direction: column;
+    }
+    [data-construction-left] {
+      flex: 0 0 100% !important;
+      padding: 40px 20px !important;
+    }
+    [data-construction-right] {
+      flex: 0 0 100% !important;
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    [data-construction-left] {
+      padding: 30px 16px !important;
+    }
+    [data-construction-right] {
+      min-height: 280px;
+    }
+    [data-shapes-row] {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-construction-left] {
+      padding: 20px 12px !important;
+    }
   }
 
   .back-btn:hover {
